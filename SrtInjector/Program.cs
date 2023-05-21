@@ -33,17 +33,17 @@ void CreateNewSrtFile(FilePair filePair)
         using StreamWriter newSrtWriter = new StreamWriter(newSrtFilePath);
         
         int lineNumber = 1;
-        bool srtFinished = false;
 
-        while (!srtFinished)
+        while (true)
         {
             string line = srtReader.ReadLine();
 
             if (lineNumber % 4 == 3)
             {
-                if (txtReader.EndOfStream)
+                string? txtContent = txtReader.ReadNextNonEmptyLine();
+
+                if (txtContent is null)
                 {
-                    srtFinished = true;
                     newSrtWriter.Close();
                     if (File.Exists(newSrtFilePath))
                     {
@@ -55,7 +55,7 @@ void CreateNewSrtFile(FilePair filePair)
                     break;
                 }
 
-                string txtContent = txtReader.ReadLine();
+                
                 newSrtWriter.WriteLine(txtContent);
             }
             else
@@ -64,9 +64,9 @@ void CreateNewSrtFile(FilePair filePair)
 
                 if (srtReader.EndOfStream)
                 {
-                    srtFinished = true;
+                    string? txtContent = txtReader.ReadNextNonEmptyLine();
 
-                    if (!txtReader.EndOfStream)
+                    if (txtContent is not null)
                     {
                         newSrtWriter.Close();
                         if (File.Exists(newSrtFilePath))
@@ -98,7 +98,6 @@ void CreateNewSrtFile(FilePair filePair)
         Console.WriteLine("An error occurred while creating the new SRT file: " + ex.Message);
     }
 }
-
 
 //void CreateNewSrtFile(FilePair filePair)
 //{

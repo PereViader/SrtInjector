@@ -1,14 +1,73 @@
 # SrtInjector
 
 ## Overview
-SrtInjector is a simple command-line tool designed to inject the content of a TXT file into an SRT file. The tool is useful for scenarios where you have an SRT subtitle file and a corresponding TXT file with additional or modified subtitle content. SrtInjector allows you to replace specific lines in the SRT file with the content from the TXT file, creating a new SRT file with the updated subtitles.
+SrtInjector is a simple command-line tool designed to inject the content of a TXT file into an SRT file (https://en.wikipedia.org/wiki/SubRip). 
 
-SRT files have this format: https://en.wikipedia.org/wiki/SubRip
+The tool is useful for scenarios where you have an SRT subtitle file and you want to easily translate or modify itwithout all the extra metadata present in the SRT file itself.
 
-The TXT is just the contents of the text subtitles in the SRT file. 
+This assumes you can generate a TXT file from the SRT file. Search `SRT to TXT converter online`.
+
+The TXT is just the contents of the text subtitles in the SRT file.
+
+Once you have the TXT file with the relevant changes, run the application and it will update the SRT file with them.
+
+## Format
+
+SRT
+```
+1
+00:02:16,612 --> 00:02:19,376
+Senator, we're making our final approach into Coruscant.
+
+2
+00:02:19,482 --> 00:02:21,609
+Very good, Lieutenant.
+
+3
+00:03:13,336 --> 00:03:15,167
+We made it.
+
+4
+00:03:18,608 --> 00:03:20,371
+I guess I was wrong.
+
+5
+00:03:20,476 --> 00:03:22,671
+There was no danger at all.
+```
+
+TXT without empty lines in between
+```
+Senator, we're making our final approach into Coruscant.
+Very good, Lieutenant.
+We made it.
+I guess I was wrong.
+There was no danger at all.
+```
+
+TXT with empty lines in between
+```
+Senator, we're making our final approach into Coruscant.
+
+Very good, Lieutenant.
+
+We made it.
+
+I guess I was wrong.
+
+There was no danger at all.
+```
+
+If you want to remove a subtitle, instead of leaving a line completely empty on the TXT file, add an ` ` empty space character
+
+```
+The line below has an empty space
+  
+The line on top has an empty space
+```
 
 ## How to Use
-Ensure that you have the .NET Runtime installed on your system.
+Ensure that you have the .NET 6 Runtime installed on your system. (https://aka.ms/dotnet-core-applaunch?missing_runtime=true)
 
 Download the SrtInjector tool and extract it to a directory of your choice.
 
